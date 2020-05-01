@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import AutoComplete from './components/AutoComplete'
+import StyledLink from './components/StyledLink'
+import './App.css'
 
-function App() {
+function App () {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <div className='App'>
+      <div className='container'>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Auto-complete using data from <StyledLink to='http://www.dnd5eapi.co/'>The D&D 5e API</StyledLink>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <AutoComplete
+          resourceEndpoint='spells'
+          label='Type in the name of a spell to search for —'
+          placeholder='Ex. Protection from Poison'
+        />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
