@@ -1,6 +1,9 @@
 import React from 'react'
 import AutoComplete from './AutoComplete'
-import { fetchContent } from './AutoComplete.utils'
+import {
+  fetchContent,
+  highlightInElement
+} from './AutoComplete.utils'
 
 export class AutoCompleteDataLayer extends React.PureComponent {
   constructor (props) {
@@ -19,11 +22,18 @@ export class AutoCompleteDataLayer extends React.PureComponent {
     this.setState({ contentList, fetched: true })
   }
 
-  _handleSearch = ({ searchTerm }) => {
+  handleSearch = searchTerm => {
     const matchedItems = searchTerm === '' ? [] : this.state.contentList.filter(
-      item => item.name.toLowerCase().includes(searchTerm.toLowerCase()
+      ({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()
     ))
-    this.setState({ matchedItems })
+
+    this.setState({ matchedItems }) 
+  }
+
+  highlightSearch = searchTerm => {
+    this.state.matchedItems.forEach(
+      ({ index, name }) => highlightInElement({ index, name, searchTerm })
+    )
   }
 
   render () {
@@ -32,7 +42,8 @@ export class AutoCompleteDataLayer extends React.PureComponent {
     return (
       <AutoComplete
         {...this.props}
-        handleSearch={this._handleSearch}
+        handleSearch={this.handleSearch}
+        highlightSearch={this.highlightSearch}
         data={matchedItems}
         disableInput={!fetched}
       />

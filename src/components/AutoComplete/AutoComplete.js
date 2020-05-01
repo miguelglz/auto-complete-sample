@@ -1,7 +1,7 @@
 import React from 'react'
 import Style from './AutoComplete.style'
 import StyledInputText from '../StyledInputText'
-import { generateItem, highlightSearch } from './AutoComplete.utils'
+import { generateItem } from './AutoComplete.utils'
 
 export class AutoComplete extends React.PureComponent {
   constructor (props) {
@@ -13,13 +13,12 @@ export class AutoComplete extends React.PureComponent {
   }
 
   componentDidUpdate () {
-    const { searchTerm } = this.state
-    const { data } = this.props
-    if (data.length) data.forEach(({ index, name }) => highlightSearch({ index, name, searchTerm }))
+    const { data, highlightSearch } = this.props
+    if (data.length) highlightSearch(this.state.searchTerm)
   }
 
   _handleOnChange = ({ target: { value: searchTerm } }) => {
-    this.props.handleSearch({ searchTerm })
+    this.props.handleSearch(searchTerm)
     this.setState({ searchTerm })
   }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import API from '../../helpers/api';
+import API from '../../helpers/api'
 import Style from './AutoComplete.style'
 
 /**
@@ -39,7 +39,7 @@ export const generateItem = ({ index, name }) => <li key={index} style={Style.li
  * @param {string} params.searchTerm - Input value from the search bar.
  *
  */
-export const highlightSearch = ({ index, name, searchTerm }) => {
+export const highlightInElement = ({ index, name, searchTerm }) => {
   const liElement = document.getElementById(index)
   const exp = new RegExp(searchTerm, 'ig')
   liElement.innerHTML = name.replace(
