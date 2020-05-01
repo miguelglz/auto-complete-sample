@@ -12,7 +12,7 @@ export class AutoCompleteDataLayer extends React.PureComponent {
     this.state = {
       contentList: [],
       matchedItems: [],
-      fetched: false
+      fetched: false // used to disable the input until the inital data from the API is fetched
     }
   }
 
@@ -22,6 +22,11 @@ export class AutoCompleteDataLayer extends React.PureComponent {
     this.setState({ contentList, fetched: true })
   }
 
+  /**
+  * Sets a list of elements that includes the curren value in the search input.
+  *
+  * @param {string} searchTerm - Input value from the search bar.
+  */
   handleSearch = searchTerm => {
     const matchedItems = searchTerm === '' ? [] : this.state.contentList.filter(
       ({ name }) => name.toLowerCase().includes(searchTerm.toLowerCase()
@@ -30,6 +35,12 @@ export class AutoCompleteDataLayer extends React.PureComponent {
     this.setState({ matchedItems }) 
   }
 
+  /**
+  * Iterates through the matched items, changing the background of each element
+  * where the search term matches.
+  *
+  * @param {string} searchTerm - Input value from the search bar.
+  */
   highlightSearch = searchTerm => {
     this.state.matchedItems.forEach(
       ({ index, name }) => highlightInElement({ index, name, searchTerm })
